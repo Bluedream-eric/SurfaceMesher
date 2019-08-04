@@ -1,5 +1,8 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+* linguist-vendored
+*.h linguist-vendored=false
+*.cpp linguist-vendored=false
 Doc/** linguist-documentaion=true
 IO_Results/** linguist-documentaion=true
 VisualStudio_Files/** linguist-generated=true
