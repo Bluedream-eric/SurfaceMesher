@@ -1,0 +1,134 @@
+20071205-2149:
+一、
+f:\developing\surfacemesher\surfacemesher\surfacemesher\geometrydefinition.h(447) : error C2556: 
+    “Mat2by2d LinearTriangleSurface::get_metric_tensor(void) const”: 重载函数与
+    “const Mat2by2d &LinearTriangleSurface::get_metric_tensor(void) const”只是在返回类型上不同
+        f:\developing\surfacemesher\surfacemesher\surfacemesher\geometrydefinition.h(441) : 参见
+           “LinearTriangleSurface::get_metric_tensor”的声明
+
+f:\developing\surfacemesher\surfacemesher\surfacemesher\geometrydefinition.h(447) : error C2040: 
+    “LinearTriangleSurface::get_metric_tensor”: “Mat2by2d (void) const”与“const Mat2by2d &(void) const”
+    的间接寻址级别不同
+
+        const Mat2by2d& get_metric_tensor() const // ok?
+	{return metric_tensor_;}
+
+	Mat2by2d get_metric_tensor() const
+	{return metric_tensor_;}
+
+二、
+f:\developing\surfacemesher\surfacemesher\surfacemesher\surfacemesher.cpp(1102) : error C2440: “=”: 
+    无法从“MatrixT<Scalar,M,N>”转换为“double”
+        with
+        [
+            Scalar=double,
+            M=1,
+            N=1
+        ]
+        没有可用于执行该转换的用户定义的转换运算符，或者无法调用该运算符
+
+20071203-1025:
+f:\developing\surfacemesher\surfacemesher\surfacemesher\surfacemesher.cpp(966) : 
+        error C2784: “bool std::operator <(const std::_Tree<_Traits> &,const std::_Tree<_Traits> &)”: 
+        无法从“std::list<_Ty>::_Iterator<_Secure_validation>”为“const std::_Tree<_Traits> &”推导 模板 参数
+        with
+        [
+            _Ty=MeshPoint3D,
+            _Secure_validation=true
+        ]
+        c:\program files\microsoft visual studio 8\vc\include\xtree(1372) : 参见“std::operator <”的声明
+
+        原语句，list的的迭代器没有<运算符
+        for (; lst_iter0<lst_iter00; ++lst_iter0)
+
+20071202-1022:
+f:\developing\surfacemesher\surfacemesher\surfacemesher\surfacemesher.cpp(968) : error C2784: 
+        “MatrixT<Scalar,M,N> operator +(const MatrixT<Scalar,M,N> &,const MatrixT<Scalar,M,N> &)”: 
+        无法从“std::list<_Ty>::_Iterator<_Secure_validation>”为“const MatrixT<Scalar,M,N> &”推导 模板 参数
+        with
+        [
+            _Ty=MeshPoint3D,
+            _Secure_validation=true
+        ]
+        f:\developing\surfacemesher\surfacemesher\surfacemesher\matrixt.h(711) : 参见“operator +”的声明
+
+
+for (lst_iter1=lst_mp3d1->begin()＋1; lst_iter1<lst_mp3d1->end()-1; )
+跟MatrixT根本没有关系的，也会出现这种错误。匹配不到相应的重载运算符，就找到MatrixT去了。
+
+20071116-1018:
+// 以下写法可以
+_vec_mp3d = new std::vector<MeshPoint3D>(dpn); // warning_clg: could be wrong
+
+
+正在编译...
+GeometryDefinition.cpp
+f:\developing\surfacemesher\surfacemesher\geometrydefinition.cpp(141) : error C2784: “MatrixT<Scalar,M,L> operator *(MatrixT<Scalar,M,N> &,MatrixT<Scalar,N,L> &)”: 无法从“int”为“MatrixT<Scalar,M,N> &”推导 模板 参数
+        f:\developing\surfacemesher\surfacemesher\matrixt.h(744) : 参见“operator *”的声明
+f:\developing\surfacemesher\surfacemesher\geometrydefinition.cpp(141) : error C2784: “MatrixT<Scalar,M,N> operator *(const MatrixT<Scalar,M,N> &,const Scalar &)”: 无法从“int”为“const MatrixT<Scalar,M,N> &”推导 模板 参数
+        f:\developing\surfacemesher\surfacemesher\matrixt.h(735) : 参见“operator *”的声明
+f:\developing\surfacemesher\surfacemesher\geometrydefinition.cpp(141) : error C2784: “MatrixT<Scalar,M,N> operator *(const Scalar &,const MatrixT<Scalar,M,N> &)”: 无法从“VectorT<Scalar,N>”为“const MatrixT<Scalar,M,N> &”推导 模板 参数
+        with
+        [
+            Scalar=double,
+            N=3
+        ]
+        f:\developing\surfacemesher\surfacemesher\matrixt.h(727) : 参见“operator *”的声明
+说明：明明是数量与矢量相乘，为什么会转成数量与矩阵相乘去了？
+orignal:
+a2 = 3*(control_point_.at(i+1) - control_point_.at(i)) - 2*control_point_tangent_vector_.at(i)
+		    - control_point_tangent_vector_.at(i+1);
+modified:
+a2 = (double)3 * (Vec3d)(control_point_.at(i+1) - control_point_.at(i)) - (double)2 * (Vec3d)control_point_tangent_vector_.at(i)
+		    - control_point_tangent_vector_.at(i+1);
+或者这样也可以：
+a2 = 3.0*(control_point_.at(i+1) - control_point_[i]) - 2.0*control_point_tangent_vector_[i]
+		    - control_point_tangent_vector_[i];
+    注意：要将3写成3.0，不然编译时出现无法推导模板参数错误，编译器认为是模板矩阵相乘了！why?
+
+
+20071029-2002:
+不能将参数 1 从“const MeshSizeSpecification::PointSource”转换为
+“MeshSizeSpecification::PointSource &”
+
+error C2662: “MeshSizeSpecification::get_spacing_from_mesh_source”: 
+不能将“this”指针从“const MeshSizeSpecification”转换为“MeshSizeSpecification &”
+
+20070929-1059:
+LineCurve() : pt_[0](Vec3d(0.0, 0.0, 0.0)), pt_[1](Vec3d(0.0, 0.0, 0.0))  // compile error
+
+assert(0.0 <= _t <= 1.0 );  // will be wrong
+
+void set_point(const Vec3d& _pt[3])  // error C2234: “_pt”: 引用数组是非法的
+
+// error C2679: 二进制“=”: 没有找到接受“const Vec3d *”类型的右操作数的运算符(或没有可接受的转换)
+void set_point(const Vec3d _pt[3])  
+corresponding operator:
+template<typename otherScalarType>
+inline vector_type& operator=(const VectorT<otherScalarType,DIM>& _rhs) 
+
+// error C2440: “return”: 无法从“const Vec3d [3]”转换为“Vec3d *”
+Vec3d* get_point() const
+
+// error C2678: 二进制“*”: 没有找到接受“const Mat3by3d”类型的左操作数的运算符(或没有可接受的转换)
+void calculate_projection(const Vec3d& _s, Vec2d& _uv) const 
+
+// error C2679: 二进制“==”: 没有找到接受“std::string”类型的右操作数的运算符(或没有可接受的转换)
+if ("stl"==extname || "STL"==extname)
+
+// error C2678: 二进制“==”: 没有找到接受“std::string”类型的左操作数的运算符(或没有可接受的转换)
+if (extname=="stl" || extname=="STL")
+
+// error C2039: “get_first_point”: 不是“Curve”的成员. 如此需要类型转换
+if (curve_geometry_[k]->get_first_point() == vec_pt[3*i+j])
+(LineCurve*)curve_geometry_[k]; (LineCurve*)(curve_geometry_[k])  // 还是error
+(((LineCurve*)curve_geometry_[k])  // 成功
+
+// error C2664: “MeshSizeSpecification::get_spacing_from_point_source”: 不能将参数 1 从
+//“const MeshSizeSpecification::PointSource”转换为“MeshSizeSpecification::PointSource &”
+double MeshSizeSpecification::get_spacing_from_mesh_source(Vec3d& _pt) const
+
+// error C2664: “MeshSizeSpecification::get_spacing_from_point_source”: 不能将参数 1 
+// 从“const MeshSizeSpecification::PointSource”转换为“MeshSizeSpecification::PointSource &”
+double MeshSizeSpecification::get_spacing_from_mesh_source(Vec3d& _pt) const
+tmp_spa = get_spacing_from_point_source(point_source_[i], _pt);

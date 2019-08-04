@@ -1,0 +1,14 @@
+minimal edge length and its index:         3.53553          17
+maximum edge length and its index:         14.0725          75
+average edge length:         8.78318
+
+minimal face area and its index:          8.3772           8
+maximum edge length and its index:         58.0116          88
+average face area:         32.6843
+
+minimal halfedge angle and its index:        0.394791          16
+maximum halfedge angle and its index:         1.96629         359
+
+minimal face aspect ratio and its index:        0.509522         108
+maximum face aspect ratio and its index:               1          22
+average face aspect ratio:        0.874948
