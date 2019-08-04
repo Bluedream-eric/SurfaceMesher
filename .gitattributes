@@ -1,5 +1,5 @@
 # Auto detect text files and perform LF normalization
 # * text=auto
-Doc/* linguist-documentaion
-IO_Results/* linguist-documentaion
-VisualStudio_Files/* linguist-generated
+Doc/* linguist-documentaion=true
+IO_Results/* linguist-documentaion=true
+VisualStudio_Files/* linguist-generated=true
