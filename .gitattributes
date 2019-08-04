@@ -3,3 +3,4 @@
 /Doc/** linguist-documentaion=true
 /IO_Results/** linguist-documentaion=true
 /VisualStudio_Files/** linguist-generated=true
+/IO_Results/**/*.pls text
